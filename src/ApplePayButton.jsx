@@ -98,11 +98,11 @@ const TapApplePayButton = () => {
             )}
 
             <ApplePayButton
-                publicKey={'pk_test_X93dkNK0gAGHB7yerPlp6nVE'}
-                environment={Environment.Development}
+                publicKey={'pk_live_68nPeWOCI0h3lNVMQAxbDYKE'}
+                environment={Environment.Production}
                 debug
                 merchant={{
-                    domain: 'localhost',
+                    domain: 'bash.website',
                     id: '58473337'
                 }}
                 transaction={{

@@ -1,6 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const PORT = 3001;
@@ -34,7 +37,7 @@ app.post('/api/charge', async (req, res) => {
                 id: token
             },
             redirect: {
-                url: 'http://localhost:5173'
+                url: 'https://www.bash.website'
             },
             customer: {
                 first_name: "Test",

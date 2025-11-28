@@ -132,7 +132,7 @@ const PaymentForm = () => {
             const { renderTapCard, Theme, Currencies, Direction, Edges, Locale } = window.CardSDK;
 
             const { unmount } = renderTapCard('card-sdk-id', {
-                publicKey: 'pk_test_X93dkNK0gAGHB7yerPlp6nVE',
+                publicKey: 'pk_live_68nPeWOCI0h3lNVMQAxbDYKE',
                 merchant: {
                     id: '58473337'
                 },
