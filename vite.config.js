@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
   server: {
     proxy: {
       '/api': {
@@ -11,5 +10,19 @@ export default defineConfig({
         changeOrigin: true
       }
     }
-  }
+  },
+  plugins: [
+    react(),
+    {
+      name: 'configure-response-headers',
+      configureServer: (server) => {
+        server.middlewares.use((req, res, next) => {
+          if (req.url === '/.well-known/apple-developer-merchantid-domain-association') {
+            res.setHeader('Content-Type', 'text/plain');
+          }
+          next();
+        });
+      }
+    }
+  ]
 })
