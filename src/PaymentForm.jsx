@@ -141,17 +141,14 @@ const PaymentForm = () => {
                     currency: Currencies.SAR
                 },
                 customer: {
-                    id: '',
                     name: [
-                        { lang: Locale.EN, first: 'Test', last: 'Test', middle: 'Test' }
+                        { lang: Locale.EN, first: 'Test', last: 'User', middle: '' }
                     ],
-                    nameOnCard: 'Test Test',
-                    editable: true,
                     contact: {
                         email: 'test@test.com',
                         phone: {
-                            countryCode: '20',
-                            number: '1000000000'
+                            countryCode: '965',
+                            number: '50000000'
                         }
                     }
                 },
