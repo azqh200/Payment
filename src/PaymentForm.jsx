@@ -278,6 +278,15 @@ const PaymentForm = () => {
             >
                 {loading ? 'Processing...' : 'Pay Now'}
             </button>
+
+            <div style={{
+                marginTop: '20px',
+                textAlign: 'center',
+                fontSize: '12px',
+                color: '#999'
+            }}>
+                Version 1.0.0
+            </div>
         </div>
     );
 };
