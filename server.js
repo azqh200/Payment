@@ -2,8 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3001;
@@ -111,6 +117,23 @@ app.get('/api/charge/:id', async (req, res) => {
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Tap Payment Server Running' });
+});
+
+// Client Logging Endpoint
+app.post('/api/log', (req, res) => {
+    const { level, message, timestamp, sessionId, url } = req.body;
+
+    const logLine = `[${timestamp}] [${sessionId}] [${level.toUpperCase()}] [${url}] ${message}\n`;
+
+    const logFile = path.join(__dirname, 'client-logs.txt');
+
+    fs.appendFile(logFile, logLine, (err) => {
+        if (err) {
+            console.error('Failed to write to log file:', err);
+            return res.status(500).json({ success: false });
+        }
+        res.json({ success: true });
+    });
 });
 
 app.listen(PORT, () => {
