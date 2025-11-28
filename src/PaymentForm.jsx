@@ -140,18 +140,6 @@ const PaymentForm = () => {
                     amount: 1,
                     currency: Currencies.SAR
                 },
-                customer: {
-                    name: [
-                        { lang: Locale.EN, first: 'Test', last: 'User', middle: '' }
-                    ],
-                    contact: {
-                        email: 'test@test.com',
-                        phone: {
-                            countryCode: '965',
-                            number: '50000000'
-                        }
-                    }
-                },
                 acceptance: {
                     supportedBrands: ['AMERICAN_EXPRESS', 'VISA', 'MASTERCARD', 'MADA'],
                     supportedCards: "ALL"
