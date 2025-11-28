@@ -138,7 +138,7 @@ const PaymentForm = () => {
                 },
                 transaction: {
                     amount: 1,
-                    currency: Currencies.SAR
+                    currency: 'SAR'
                 },
                 acceptance: {
                     supportedBrands: ['AMERICAN_EXPRESS', 'VISA', 'MASTERCARD', 'MADA'],
@@ -153,10 +153,10 @@ const PaymentForm = () => {
                     saveCard: true
                 },
                 interface: {
-                    locale: Locale.EN,
-                    theme: Theme.LIGHT,
-                    edges: Edges.CURVED,
-                    direction: Direction.LTR
+                    locale: 'en',
+                    theme: 'light',
+                    edges: 'curved',
+                    direction: 'ltr'
                 },
                 onReady: () => console.log('onReady'),
                 onFocus: () => console.log('onFocus'),
