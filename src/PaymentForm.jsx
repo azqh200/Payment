@@ -129,54 +129,76 @@ const PaymentForm = () => {
                 return;
             }
 
-            const { renderTapCard, Theme, Currencies, Direction, Edges, Locale } = window.CardSDK;
+            try {
+                const { renderTapCard, Theme, Currencies, Direction, Edges, Locale } = window.CardSDK;
 
-            const { unmount } = renderTapCard('card-sdk-id', {
-                publicKey: 'pk_live_68nPeWOCI0h3lNVMQAxbDYKE',
-                merchant: {
-                    id: '58473337'
-                },
-                transaction: {
-                    amount: 1,
-                    currency: 'SAR'
-                },
-                acceptance: {
-                    supportedBrands: ['AMERICAN_EXPRESS', 'VISA', 'MASTERCARD', 'MADA'],
-                    supportedCards: "ALL"
-                },
-                fields: {
-                    cardHolder: true
-                },
-                addons: {
-                    displayPaymentBrands: true,
-                    loader: true,
-                    saveCard: true
-                },
-                interface: {
-                    locale: 'en',
-                    theme: 'light',
-                    edges: 'curved',
-                    direction: 'ltr'
-                },
-                onReady: () => console.log('onReady'),
-                onFocus: () => console.log('onFocus'),
-                onBinIdentification: (data) => console.log('onBinIdentification', data),
-                onValidInput: (data) => console.log('onValidInputChange', data),
-                onInvalidInput: (data) => console.log('onInvalidInput', data),
-                onChangeSaveCardLater: (isSaveCardSelected) => console.log(isSaveCardSelected, " :onChangeSaveCardLater"),
-                onError: (data) => {
-                    console.log('onError', data);
-                    setChargeStatus({
-                        success: false,
-                        message: 'SDK Error: ' + (data.errors ? JSON.stringify(data.errors) : 'Unknown error'),
-                        error: data
-                    });
-                },
-                onSuccess: handleTokenSuccess
-            });
+                const { unmount } = renderTapCard('card-sdk-id', {
+                    publicKey: 'pk_live_68nPeWOCI0h3lNVMQAxbDYKE',
+                    merchant: {
+                        id: '58473337'
+                    },
+                    transaction: {
+                        amount: 1,
+                        currency: 'SAR'
+                    },
+                    acceptance: {
+                        supportedBrands: ['AMERICAN_EXPRESS', 'VISA', 'MASTERCARD', 'MADA'],
+                        supportedCards: "ALL"
+                    },
+                    fields: {
+                        cardHolder: true
+                    },
+                    addons: {
+                        displayPaymentBrands: true,
+                        loader: true,
+                        saveCard: true
+                    },
+                    interface: {
+                        locale: 'en',
+                        theme: 'light',
+                        edges: 'curved',
+                        direction: 'ltr'
+                    },
+                    onReady: () => console.log('onReady'),
+                    onFocus: () => console.log('onFocus'),
+                    onBinIdentification: (data) => console.log('onBinIdentification', data),
+                    onValidInput: (data) => console.log('onValidInputChange', data),
+                    onInvalidInput: (data) => console.log('onInvalidInput', data),
+                    onChangeSaveCardLater: (isSaveCardSelected) => console.log(isSaveCardSelected, " :onChangeSaveCardLater"),
+                    onError: (data) => {
+                        console.log('onError', data);
+                        setChargeStatus({
+                            success: false,
+                            message: 'SDK Error: ' + (data.errors ? JSON.stringify(data.errors) : 'Unknown error'),
+                            error: data
+                        });
+                    },
+                    onSuccess: handleTokenSuccess
+                });
+            } catch (err) {
+                console.error("SDK Init Error:", err);
+                setChargeStatus({
+                    success: false,
+                    message: 'Failed to load Card Form',
+                    error: err.message
+                });
+            }
         };
 
+        // Timeout to show error if SDK doesn't load
+        const timeoutId = setTimeout(() => {
+            if (!window.CardSDK) {
+                setChargeStatus({
+                    success: false,
+                    message: 'Card SDK script failed to load. Check your internet connection or ad blocker.',
+                    error: 'Timeout waiting for window.CardSDK'
+                });
+            }
+        }, 10000);
+
         initTap();
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     return (
@@ -278,7 +300,7 @@ const PaymentForm = () => {
                 fontSize: '12px',
                 color: '#999'
             }}>
-                Version 1.0.3
+                Version 1.0.4
             </div>
         </div>
     );
