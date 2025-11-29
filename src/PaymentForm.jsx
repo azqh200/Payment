@@ -245,14 +245,19 @@ const PaymentForm = () => {
                     )}
                     {chargeStatus.error && (
                         <pre style={{
-                            margin: '10px 0 0 0',
+                            background: '#fff',
                             padding: '10px',
-                            backgroundColor: '#fff',
                             borderRadius: '4px',
                             fontSize: '12px',
-                            overflow: 'auto'
+                            overflowX: 'auto',
+                            textAlign: 'left'
                         }}>
-                            {JSON.stringify(chargeStatus.error, null, 2)}
+                            {(() => {
+                                if (typeof chargeStatus.error === 'string') return chargeStatus.error;
+                                if (chargeStatus.error instanceof Error) return chargeStatus.error.message;
+                                const stringified = JSON.stringify(chargeStatus.error, null, 2);
+                                return stringified === '{}' ? (chargeStatus.error.message || 'Unknown error') : stringified;
+                            })()}
                         </pre>
                     )}
                 </div>
@@ -285,7 +290,7 @@ const PaymentForm = () => {
                 fontSize: '12px',
                 color: '#999'
             }}>
-                Version 1.0.0
+                Version 1.0.2
             </div>
         </div>
     );
