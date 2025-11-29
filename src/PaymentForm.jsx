@@ -140,18 +140,6 @@ const PaymentForm = () => {
                     amount: 1,
                     currency: 'SAR'
                 },
-                customer: {
-                    name: [
-                        { lang: 'en', first: 'Test', last: 'User', middle: '' }
-                    ],
-                    contact: {
-                        email: 'test@test.com',
-                        phone: {
-                            countryCode: '965',
-                            number: '50000000'
-                        }
-                    }
-                },
                 acceptance: {
                     supportedBrands: ['AMERICAN_EXPRESS', 'VISA', 'MASTERCARD', 'MADA'],
                     supportedCards: "ALL"
@@ -290,7 +278,7 @@ const PaymentForm = () => {
                 fontSize: '12px',
                 color: '#999'
             }}>
-                Version 1.0.2
+                Version 1.0.3
             </div>
         </div>
     );
